@@ -32,6 +32,7 @@
 
 </body>
 <script src="./js/lib/jquery-2.1.4.js"></script>
+<script src="./js/lib/jquery.cookie.js"></script>
 <script>
          //默认表单为同步，将表单变成异步表单
           //1.给表单绑定submit事件
@@ -46,6 +47,14 @@
                    success: function (data){
                        console.log(data);
                        if(data.code == 200){
+                           //在跳转主页界面之前获取登陆界面的用户信息
+                             var r = data.result;
+                            // 将获取到的对象信息用json序列化
+                            var rstr = JSON.stringify(r);
+                           //用会话模式保存数据(兼容性问题)
+//                            sessionStorage.setItem('userinfo',rstr);
+                           //用cookie来保存数据，每个浏览器都可以
+                           $.cookie('userinfo',rstr);
                             location.href = 'index.html';
                         }
                    },

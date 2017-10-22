@@ -9,7 +9,25 @@
 
 </body>
 <script>
-    //1、location.search获取get请求的参数   获取到的数据，是以?开头的
-
+    //1、location.search获取get请求的参数   获取到的数据，是以?开头的（?name=hg&age=28&height=180）
+      var search = location.search;
+       // 封装一个将get请求中数据变成对象的函数
+       function parse(search){
+           //用截取字符串的方法substring将第一个？字符去掉
+            var str = search.substring(1)  //从第二个开始截取获得一个新的字符串
+            var obj = {};
+            //分割字符串 产生新的字符串数组
+             var strs = str.split('&');
+            //[name=hg ,age=18,..]
+            strs.forEach(function(val){
+                var keyval = val.split('=');
+                var name = keyval[0];
+                var value = keyval[1];
+                obj[name] = value ;
+            })
+           return obj;
+       }
+     var r =parse(search);
+    console.log(r);
 </script>
 </html>
